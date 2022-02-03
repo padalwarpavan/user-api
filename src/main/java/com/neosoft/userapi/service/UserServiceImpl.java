@@ -4,13 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.neosoft.userapi.exception.FileStorageException;
 import com.neosoft.userapi.exception.ResourceNotFoundException;
-import com.neosoft.userapi.models.UserDetails;
+import com.neosoft.userapi.models.UserDetail;
 import com.neosoft.userapi.repository.UserRepository;
 import com.neosoft.userapi.request.UserRequest;
 import com.neosoft.userapi.response.MessageResponse;
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService {
 	    if (fileName.contains("..")) {
 		    throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
 		}
-		UserDetails newUser = new UserDetails();
+		UserDetail newUser = new UserDetail();
 		newUser.setFirstName(userRequest.getFirstName());
 		newUser.setLastName(userRequest.getLastName());
 		newUser.setPhoneNumber(userRequest.getPhoneNumber());
@@ -39,32 +40,47 @@ public class UserServiceImpl implements UserService {
 		return new MessageResponse("New User created successfully");
     }
 
-	@Override
-	public Optional<UserDetails> updateUser(Integer userId, UserRequest userRequest)
+	/*
+	 * @Override public Optional<UserDetail> updateUser(Integer userId, UserRequest
+	 * userRequest) throws ResourceNotFoundException { Optional<UserDetail> user =
+	 * userRepository.findById(userId); if (user.isEmpty()) { throw new
+	 * ResourceNotFoundException("User", "id", userId); } else
+	 * user.get().setFirstName(userRequest.getFirstName());
+	 * user.get().setLastName(userRequest.getLastName());
+	 * user.get().setPhoneNumber(userRequest.getPhoneNumber());
+	 * user.get().setEmail(userRequest.getEmail());
+	 * user.get().setAddress(userRequest.getUserAddress());
+	 * user.get().setUserImage(userRequest.getUserImage());
+	 * 
+	 * userRepository.save(user.get()); return user; //return null; }
+	 */
+	
+	//@Override
+		public Optional<UserDetail> updateUser(Integer userId, UserRequest userRequest)
 			throws ResourceNotFoundException {
-//		Optional<UserDetails> user = userRepository.findById(userId);
-//		if (user.isEmpty()) {
-//			throw new ResourceNotFoundException("User", "id", userId);
-//		} else
-//			user.get().setFirstName(userRequest.getFirstName());
-//		user.get().setLastName(userRequest.getLastName());
-//		user.get().setPhoneNumber(userRequest.getPhoneNumber());
-//		user.get().setEmail(userRequest.getEmail());
-//		user.get().setAddressOne(userRequest.getAddressOne());
-//		user.get().setAddressTwo(userRequest.getAddressTwo());
-//		userRepository.save(user.get());
-//		return user;
-		return null;
-	}
+//			Optional<UserDetails> user = userRepository.findById(userId);
+//			if (user.isEmpty()) {
+//				throw new ResourceNotFoundException("User", "id", userId);
+//			} else
+//				user.get().setFirstName(userRequest.getFirstName());
+//			user.get().setLastName(userRequest.getLastName());
+//			user.get().setPhoneNumber(userRequest.getPhoneNumber());
+//			user.get().setEmail(userRequest.getEmail());
+//			user.get().setAddressOne(userRequest.getAddressOne());
+//			user.get().setAddressTwo(userRequest.getAddressTwo());
+//			userRepository.save(user.get());
+//			return user;
+			return null;
+		}
 
 	@Override
-	public UserDetails getASingleUser(Integer userId) throws ResourceNotFoundException {
+	public UserDetail getASingleUser(Integer userId) throws ResourceNotFoundException {
 		return userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 	}
 
 	@Override
-	public List<UserDetails> getAllUser() {
+	public List<UserDetail> getAllUser() {
 		return userRepository.findAll();
 	}
 
@@ -75,4 +91,14 @@ public class UserServiceImpl implements UserService {
 		} else
 			throw new ResourceNotFoundException("User", "id", userId);
 	}
+
+	@Override
+	public Optional<UserDetail> updateUser(UserRequest userRequest, MultipartFile file) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+
+
 }

@@ -69,6 +69,13 @@ public class UserRequest {
 	public void setUserImage(UserImage userImage) {
 		this.userImage = userImage;
 	}
+
+	@Override
+	public String toString() {
+		return "UserRequest [firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber
+				+ ", email=" + email + ", userAddress=" + userAddress + ", userImage=" + userImage + "]";
+	}
+	
 	
 
 }

@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_master")
-public class UserDetails {
+public class UserDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", length = 10)
@@ -28,24 +28,20 @@ public class UserDetails {
 	private String phoneNumber;
 	@Column(name = "email", length = 25)
 	private String email;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="address", referencedColumnName = "addid")
-	private UserAddress address;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="userimage", referencedColumnName = "userimageid")
-	private UserImage userImage;
-	
-	
 
-	public UserDetails() {
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address", referencedColumnName = "addid")
+	private UserAddress address;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "userimage", referencedColumnName = "userimageid")
+	private UserImage userImage;
+
+	public UserDetail() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	
-	public UserDetails(Integer id, String firstName, String lastName, String phoneNumber, String email,
+	public UserDetail(Integer id, String firstName, String lastName, String phoneNumber, String email,
 			UserAddress address, UserImage userImage) {
 		super();
 		this.id = id;
@@ -56,7 +52,6 @@ public class UserDetails {
 		this.address = address;
 		this.userImage = userImage;
 	}
-
 
 	public Integer getId() {
 		return id;
@@ -98,16 +93,13 @@ public class UserDetails {
 		this.email = email;
 	}
 
-
 	public UserAddress getAddress() {
 		return address;
 	}
 
-
 	public void setAddress(UserAddress address) {
 		this.address = address;
 	}
-
 
 	public UserImage getUserImage() {
 		return userImage;
@@ -130,7 +122,7 @@ public class UserDetails {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserDetails other = (UserDetails) obj;
+		UserDetail other = (UserDetail) obj;
 		return Objects.equals(address, other.address) && Objects.equals(email, other.email)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(phoneNumber, other.phoneNumber)
@@ -142,7 +134,5 @@ public class UserDetails {
 		return "UserDetails [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber="
 				+ phoneNumber + ", email=" + email + ", address=" + address + ", userImage=" + userImage + "]";
 	}
-	
-	
-	
+
 }
